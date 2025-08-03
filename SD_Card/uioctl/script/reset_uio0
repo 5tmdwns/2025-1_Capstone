@@ -1,0 +1,3 @@
+#! /bin/bash
+sudo /home/petalinux/uioctl/bin/uioctl /dev/uio0 0 0
+sudo /home/petalinux/uioctl/bin/uioctl /dev/uio0 4 0
