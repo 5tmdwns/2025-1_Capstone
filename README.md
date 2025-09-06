@@ -28,19 +28,19 @@ MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 �
 우선 WSL 서버를 먼저 만들고, 해당 서버에 개발하기 위한 Tool을 설치하였습니다. <br/>
 Xilinx 홈페이지에서 Linux용 .bin파일을 2022.1 버전으로 다운받고 실행시킨 후 install_config.txt의 설정을 다음과 같이 진행하였습니다. <br/>
 
-<p style="margin: 30px 0;">
+<p style="margin: 20px 0;">
   <img width="100%" alt="install_config.txt_image" src="https://github.com/user-attachments/assets/df2cce9a-50e0-4505-a52e-32df653e1034" />
 </p>
 
 어차피 저희가 사용할 건 Zynq패밀리의 7000시리즈니까 설치 용량을 위해 나머지는 죄다 0으로 설정하였습니다. (~~Spartan-7은 이후 프로젝트 때문에 추가로 설치 😭~~) <br/>
 
-<p style="margin: 30px 0;">
+<p style="margin: 20px 0;">
   <img width="100%" alt=".bashrc_image" src="https://github.com/user-attachments/assets/b2a49a9e-3ff6-43a6-b495-ad90ad2cdaff" />
 </p>
 
 그리고 Vivado와 Vitis의 설치된 경로 안에 있는 settings64.sh를 .bashrc에 넣어 .bashrc를 소싱해주고 Vivado와 Vitis를 실행해 보면? <br/>
 
-<p style="margin: 30px 0;">
+<p style="margin: 20px 0;">
   <img width="49%" alt="vivado_start_image" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
   <img width="49%" alt="vitis_start_image" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" />
 </p>
@@ -50,7 +50,7 @@ Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 &nbsp;이제 WSL 서버에 Vivado와 Vitis를 설치했으니, 해당 WSL2 서버를 Port Forwarding을 통해서 접속할 수 있도록 해야 합니다. <br/>
 Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router 이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
 
-<p style="margin: 30px 0;">
+<p style="margin: 20px 0;">
   <img width="100%" alt="TP-Link_imgae" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
 </p>
 
@@ -93,7 +93,7 @@ sudo visudo
 
 열리는 파일에 가장 아래쪽에 다음과 같은 문장 삽입후 저장하고 나오기! <br/>
 
-<p style="margin: 30px 0">
+<p style="margin: 20px 0">
   <img width="100%" alt="visudo_image" src="https://github.com/user-attachments/assets/59de28bb-c441-43a6-9135-8eb86f7b3caa" /> 
 </p>
 
@@ -136,11 +136,33 @@ Invoke-Expression "netsh interface portproxy show v4tov4";
 그리고 해당 스크립트를 메모장에서 만든 뒤 ports_wsl.ps1 으로 저장하고 C 드라이브에 PowerShellScript 폴더를 만들어 저장했습니다. <br/>
 그리고 해당 스크립트를 PowerShell에서 실행시켜 본다면? <br/>
 
-<p style="margin: 30px 0">
+<p style="margin: 20px 0">
   <img width="100%" alt="ports_wsl.ps1_start" src="https://github.com/user-attachments/assets/69fb29ef-68b5-4d53-9cf1-80d44f388223" />
 </p>
 
-자, 그럼 이제 또 위 스크립트를 귀찮게 부팅 시마다 실행시킬 수 없으니 작업 스케쥴러를 작성해보자. <br/>
+자, 그럼 이제 또 위 스크립트를 귀찮게 부팅 시마다 실행시킬 수 없으니 작업 스케줄러를 작성하고 ExecutionPolicy를 지정했습니다. <br/>
+Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러를 열어줍니다. <br/>
+그리고 작업 만들기를 클릭 한 후, 다음과 같이 설정합니다. <br/>
+
+- 일반 설정 탭 <br/>
+  - 이름 : WSL network Forwarding <br/>
+  - 보안옵션 : 사용자가 로그온할 때만 실행, 가장 높은 수준의 권한으로 실행 체크 <br/>
+- 트리거 탭 <br/>
+  새로만들기 후, <br/>
+  - 작업 시작 : 로그온할 때 <br/>
+- 동작 탭 <br/>
+  새로만들기 후, <br/>
+  - 동작 : 프로그램 시작 <br/>
+  - 프로그램/스크립트 : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe <br/>
+  - 인수 추가(옵션) : -ExecutionPolicy Bypass -File .\ports_wsl.ps1 <br/>
+  - 시작 위치(옵션) : C:\PowerShellScript <br/>
+- 조건 탭 <br/>
+  컴퓨터의 AC 전원이 켜져 있는 경우에만 작업 시작 체크 해제 <br/>
+- 설정 탭 <br/>
+  다음 시간 이상 작업이 실행되면 중지 체크 해제 <br/>
+
+위처럼 설정하면 부팅 시 자동으로 해당 ports_wsl.ps1이 실행됩니다. <br/>
+
 
 ## Goal
 
