@@ -5,7 +5,7 @@
 
 ## Index ⭐️
 - [1. Prolog](#Prolog) <br/>
-  - [1-1. 뻘짓 첫번째](#뻘짓-첫번째) <br/>
+  - [1-1. 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)](#뻘짓-첫번째-/(어디서든-접속-가능한-WSL서버-만들기/)) <br/>
   
 - [2. Goal](#Goal) <br/>
 - [3. System Architecture](#System-Architecture) <br/>
@@ -19,7 +19,7 @@
 처음에는 한 친구가 우리만의 시스템을 만들고 싶다 하여서 그 친구와 같은 마음으로 프로젝트 시작 기간(3\~6월) 전인 1월에 이야기를 했던 것이 떠오릅니다. <br/>
 그래서 같이 하고 싶은 친구 2명을 모집하여 어떻게 구성할건지, 어떤 알고리즘을 사용해서 주행을 할건지, ADAS로 갈건지 정말 전체적인 시스템을 구현할 건지에 대해서 정해진 이야기도 없고 주제도 선정하지 않았었죠.😂 <br/>
 
-### 뻘짓 첫번째
+### 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)
 &nbsp;제가 좀 뻘짓을 해놓은게 1~2월 달에 FPGA보드(Zybo Z7-20)를 가지고 있는 친구에게 빌려, 팀원들에게 좀 더 편리함을 제공하고 프로젝트를 진행하기 위한 밑작업을 했었습니다. <br/>
 MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 쉽지 않았습니다. <br/>
 <strong>우선, Xilinx Vivado 및 Vitis가 MacOS에서 Virtualization없이는 설치가 불가피하다는 점.</strong> <br/>
@@ -85,9 +85,62 @@ sudo service ssh --full-restart
 ```
 
 그리고 이 sshd.bat파일을 Win + r키를 눌러 실행 창을 띄우고 shell:startup을 입력하여 시작프로그램 폴더안에 넣어 ssh service가 윈도우 부팅 시 자동으로 실행되게 합니다. <br/>
+하지만 sudo시 비밀번호를 입력하라는 창을 볼텐데, 비밀번호 없이 시작하기 위해 설정할려면 WSL서버에서 visudo를 설정합니다. <br/>
 
+``` bash
+sudo visudo
+```
 
+열리는 파일에 가장 아래쪽에 다음과 같은 문장 삽입후 저장하고 나오기! <br/>
 
+<p style="margin: 30px 0">
+  <img width="100%" alt="visudo_image" src="https://github.com/user-attachments/assets/59de28bb-c441-43a6-9135-8eb86f7b3caa" /> 
+</p>
+
+Client에서 PC의 공인IP와 포트를 통해서 PC 내부의 WSL에 접속하기 위해 TP-Link 사이트에서 아이피 고정하고 위 과정을 하면 접속이 될 줄 알았더만, <strong>WSL 이자식이 부팅시마다 가상 IP주소가 재부팅시마다 변합니다.</strong> 😡 <br/>
+그래서 이놈의 바뀌는 IP를 PowerShell Script를 통해 공유기에서 할당된 PC의 IP Port를 WSL의 가상 IP Port로 포워딩 시켜줍니다. <br/>
+작성했던 해당 스크립트는 다음과 같습니다. <br/>
+
+``` bash
+If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {   
+  $arguments = "& '" + $myinvocation.mycommand.definition + "'"
+  Start-Process powershell -Verb runAs -ArgumentList $arguments
+  Break
+}
+
+$remoteport = bash.exe -c "ifconfig eth0 | grep 'inet '"
+$found = $remoteport -match '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}';
+
+if ( $found ) {
+  $remoteport = $matches[0];
+}
+else {
+  Write-Output "The Script Exited, the ip address of WSL 2 cannot be found";
+  exit;
+}
+
+$ports = @(2222, 2223);
+
+Invoke-Expression "netsh interface portproxy reset";
+
+for ( $i = 0; $i -lt $ports.length; $i++ ) {
+  $port = $ports[$i];
+  Invoke-Expression "netsh interface portproxy add v4tov4 listenport=$port connectport=$port connectaddress=$remoteport";
+}
+
+Invoke-Expression "netsh interface portproxy show v4tov4";
+```
+
+여기서 $port = @(2222, 2223); 부분에 포워딩하고 싶은 포트를 입력했습니다. <br/>
+그럼 공유기에서 할당된 PC의 IP Port가 WSL2의 가상 IP Port로 연결됩니다. <br/>
+그리고 해당 스크립트를 메모장에서 만든 뒤 ports_wsl.ps1 으로 저장하고 C 드라이브에 PowerShellScript 폴더를 만들어 저장했습니다. <br/>
+그리고 해당 스크립트를 PowerShell에서 실행시켜 본다면? <br/>
+
+<p style="margin: 30px 0">
+  <img width="100%" alt="ports_wsl.ps1_start" src="https://github.com/user-attachments/assets/69fb29ef-68b5-4d53-9cf1-80d44f388223" />
+</p>
+
+자, 그럼 이제 또 위 스크립트를 귀찮게 부팅 시마다 실행시킬 수 없으니 작업 스케쥴러를 작성해보자. <br/>
 
 ## Goal
 
