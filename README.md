@@ -162,6 +162,23 @@ Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러
   다음 시간 이상 작업이 실행되면 중지 체크 해제 <br/>
 
 위처럼 설정하면 부팅 시 자동으로 해당 ports_wsl.ps1이 실행됩니다. <br/>
+이후, 포트 개방을 하기 위해선 방화벽을 해제해야 했습니다. <br/>
+Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/>
+해당 규칙은 TCP에 적용시키고, 특정 포트 2222에 적용시킵니다. <br/>
+
+<p style="margin: 30px 0">
+  <img width="100%" alt="windows_defender_image" src="https://github.com/user-attachments/assets/d1ea7932-b15a-43d4-8999-a22fd7e5c3d5" />
+</p>
+
+이로서 설정은 다 되었고, 내 IP 해당 포트가 열려있는지 확인하기 위해서 해당 사이트를 들어가서 확인해봤습니다.[포트확인 사이트](https://www.yougetsignal.com/tools/open-ports/) <br/>
+
+<p style="margin: 30px 0">
+  <img width="100%" alt="port_signal_image" src="https://github.com/user-attachments/assets/431d07f0-fe32-4ef8-bce4-05e5da09fdba" />
+</p>
+
+열려있는걸 확인하고 MacOS에서 데스크탑 공인 PC IP의 포트 2222번으로 접속하면? <br/>
+
+
 
 
 ## Goal
@@ -180,3 +197,4 @@ Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러
 ## Reference
 - [리눅스 실습 서버 만들기](https://seonybob3210.tistory.com/35) <br/>
 - [WSL2 외부 접속 설정](https://velog.io/@momentum96/WSL2-%EC%99%B8%EB%B6%80-%EC%A0%91%EC%86%8D-%EC%84%A4%EC%A0%95#2-wsl2-ssh-%EC%84%A4%EC%A0%95) <br/>
+- [윈도우즈 방화벽 설정](https://tttsss77.tistory.com/238#google_vignette) <br/>
