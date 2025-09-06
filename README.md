@@ -26,8 +26,8 @@ Xilinx 홈페이지에서 Linux용 BIN파일을 2022.1 버전으로 다운받고
 어차피 저희가 사용할 건 Zynq패밀리의 7000시리즈니까 설치 용량을 위해 나머지는 죄다 0으로 설정하였습니다. (~~Spartan-7은 이후 프로젝트 때문에 추가로 설치 😭~~)<br/>
 <img width="100%" alt=".bashrc_image" src="https://github.com/user-attachments/assets/b2a49a9e-3ff6-43a6-b495-ad90ad2cdaff" />
 그리고 Vivado와 Vitis의 설치된 경로 안에 있는 settings64.sh를 .bashrc에 넣어 .bashrc를 소싱해주고 Vivado와 Vitis를 실행해 보면? <br/>
-<img width="50%" alt="vivado_start_image" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
-<img width="50%" alt="vitis_start_image" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" /> <br/>
+<img width="45%" alt="vivado_start_image" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
+<img width="45%" alt="vitis_start_image" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" /> <br/>
 이후, Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 
 
