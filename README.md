@@ -144,21 +144,21 @@ Invoke-Expression "netsh interface portproxy show v4tov4";
 Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러를 열어줍니다. <br/>
 그리고 작업 만들기를 클릭 한 후, 다음과 같이 설정합니다. <br/>
 
-- 일반 설정 탭 <br/>
+- **일반 설정 탭** <br/>
   - 이름 : WSL network Forwarding <br/>
   - 보안옵션 : 사용자가 로그온할 때만 실행, 가장 높은 수준의 권한으로 실행 체크 <br/>
-- 트리거 탭 <br/>
+- **트리거 탭** <br/>
   새로만들기 후, <br/>
   - 작업 시작 : 로그온할 때 <br/>
-- 동작 탭 <br/>
+- **동작 탭** <br/>
   새로만들기 후, <br/>
   - 동작 : 프로그램 시작 <br/>
   - 프로그램/스크립트 : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe <br/>
   - 인수 추가(옵션) : -ExecutionPolicy Bypass -File .\ports_wsl.ps1 <br/>
   - 시작 위치(옵션) : C:\PowerShellScript <br/>
-- 조건 탭 <br/>
+- **조건 탭** <br/>
   컴퓨터의 AC 전원이 켜져 있는 경우에만 작업 시작 체크 해제 <br/>
-- 설정 탭 <br/>
+- **설정 탭** <br/>
   다음 시간 이상 작업이 실행되면 중지 체크 해제 <br/>
 
 위처럼 설정하면 부팅 시 자동으로 해당 ports_wsl.ps1이 실행됩니다. <br/>
