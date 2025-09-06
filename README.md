@@ -6,7 +6,7 @@
 ## Index ⭐️
 - [1. Prolog](#Prolog) <br/>
   - [1-1. 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)](#뻘짓-첫번째-/(어디서든-접속-가능한-WSL서버-만들기/)) <br/>
-  
+  - [1-2. 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)](#뻘짓-두번째-/(원격으로 FPGA보드에 비트스트림 업로드 하기/)) <br/>
 - [2. Goal](#Goal) <br/>
 - [3. System Architecture](#System-Architecture) <br/>
 - [4. Process](#Process) <br/>
@@ -29,20 +29,20 @@ MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 �
 Xilinx 홈페이지에서 Linux용 .bin파일을 2022.1 버전으로 다운받고 실행시킨 후 install_config.txt의 설정을 다음과 같이 진행하였습니다. <br/>
 
 <p style="margin: 20px 0;">
-  <img width="100%" alt="install_config.txt_image" src="https://github.com/user-attachments/assets/df2cce9a-50e0-4505-a52e-32df653e1034" />
+  <img width="100%" alt="install_config.txt 사진" src="https://github.com/user-attachments/assets/df2cce9a-50e0-4505-a52e-32df653e1034" />
 </p>
 
 어차피 저희가 사용할 건 Zynq패밀리의 7000시리즈니까 설치 용량을 위해 나머지는 죄다 0으로 설정하였습니다. (~~Spartan-7은 이후 프로젝트 때문에 추가로 설치 😭~~) <br/>
 
 <p style="margin: 20px 0;">
-  <img width="100%" alt=".bashrc_image" src="https://github.com/user-attachments/assets/b2a49a9e-3ff6-43a6-b495-ad90ad2cdaff" />
+  <img width="100%" alt=".bashrc 사진" src="https://github.com/user-attachments/assets/b2a49a9e-3ff6-43a6-b495-ad90ad2cdaff" />
 </p>
 
 그리고 Vivado와 Vitis의 설치된 경로 안에 있는 settings64.sh를 .bashrc에 넣어 .bashrc를 소싱해주고 Vivado와 Vitis를 실행해 보면? <br/>
 
 <p style="margin: 20px 0;">
-  <img width="49%" alt="vivado_start_image" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
-  <img width="49%" alt="vitis_start_image" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" />
+  <img width="49%" alt="vivado 시작 사진" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
+  <img width="49%" alt="vitis 시작 사진" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" />
 </p>
 
 Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
@@ -51,7 +51,7 @@ Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router 이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
 
 <p style="margin: 20px 0;">
-  <img width="100%" alt="TP-Link_imgae" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
+  <img width="100%" alt="TP-Link 사이트 사진" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
 </p>
 
 Clint에서 해당 아이피의 포트 2222번으로 접속하면 데스크탑 2222번 포트로 연결 되는데 이는 WSL Server를 가르킵니다. (~~WSL2TORPI5는 추후에 WSL Server에서 RPI5로 더블 포트 포워딩을 위한 작업, Desktop은 MacOS에서 해당 데스크탑으로 원격을 위한 포트입니다.~~)<br/>
@@ -94,7 +94,7 @@ sudo visudo
 열리는 파일에 가장 아래쪽에 다음과 같은 문장 삽입후 저장하고 나오기! <br/>
 
 <p style="margin: 20px 0">
-  <img width="100%" alt="visudo_image" src="https://github.com/user-attachments/assets/59de28bb-c441-43a6-9135-8eb86f7b3caa" /> 
+  <img width="100%" alt="visudo 사진" src="https://github.com/user-attachments/assets/59de28bb-c441-43a6-9135-8eb86f7b3caa" /> 
 </p>
 
 Client에서 PC의 공인IP와 포트를 통해서 PC 내부의 WSL에 접속하기 위해 TP-Link 사이트에서 아이피 고정하고 위 과정을 하면 접속이 될 줄 알았더만, <strong>WSL 이자식이 부팅시마다 가상 IP주소가 재부팅시마다 변합니다.</strong> 😡 <br/>
@@ -137,7 +137,7 @@ Invoke-Expression "netsh interface portproxy show v4tov4";
 그리고 해당 스크립트를 PowerShell에서 실행시켜 본다면? <br/>
 
 <p style="margin: 20px 0">
-  <img width="100%" alt="ports_wsl.ps1_start" src="https://github.com/user-attachments/assets/69fb29ef-68b5-4d53-9cf1-80d44f388223" />
+  <img width="100%" alt="ports_wsl.ps1 실행 사진" src="https://github.com/user-attachments/assets/69fb29ef-68b5-4d53-9cf1-80d44f388223" />
 </p>
 
 자, 그럼 이제 또 위 스크립트를 귀찮게 부팅 시마다 실행시킬 수 없으니 작업 스케줄러를 작성하고 ExecutionPolicy를 지정했습니다. <br/>
@@ -166,27 +166,32 @@ Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러
 Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/>
 해당 규칙은 TCP에 적용시키고, 특정 포트 2222에 적용시킵니다. <br/>
 
-<p style="margin: 30px 0">
-  <img width="100%" alt="windows_defender_image" src="https://github.com/user-attachments/assets/d1ea7932-b15a-43d4-8999-a22fd7e5c3d5" />
+<p style="margin: 20px 0">
+  <img width="100%" alt="windows defender 설정 사진" src="https://github.com/user-attachments/assets/d1ea7932-b15a-43d4-8999-a22fd7e5c3d5" />
 </p>
 
 이로서 설정은 다 되었고, 내 IP 해당 포트가 열려있는지 확인하기 위해서 해당 사이트를 들어가서 확인해봤습니다.[포트확인 사이트](https://www.yougetsignal.com/tools/open-ports/) <br/>
 
-<p style="margin: 30px 0">
-  <img width="100%" alt="port_signal_image" src="https://github.com/user-attachments/assets/431d07f0-fe32-4ef8-bce4-05e5da09fdba" />
+<p style="margin: 20px 0">
+  <img width="100%" alt="you get signal 페이지 사진" src="https://github.com/user-attachments/assets/431d07f0-fe32-4ef8-bce4-05e5da09fdba" />
 </p>
 
 열려있는걸 확인하고 MacOS에서 데스크탑 공인 PC IP의 포트 2222번으로 접속하면? <br/>
+
+<p style="margin: 20px 0">
+  <img width="1036" height="464" alt="맥북 서버 접속" src="https://github.com/user-attachments/assets/39409e00-deb7-46f6-aa3e-2d04511dda89" />
+</p>
+
+어디서든 접속하게 되었습니다!!! <br/>
+
+### 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)
 
 
 
 
 ## Goal
 
-
-
 ## System Architecture
-
 
 ## Process
 
