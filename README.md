@@ -10,12 +10,14 @@
 - [4. Process](#Process) <br/>
 - [5. Conclusion](#Conclusion) <br/>
 - [6. Difficulites and Feelings](#Difficulties-and-Feelings) <br/>
+- [7. Reference](#Reference) <br/>
 
 ## Prolog
 &nbsp;졸업작품을 위해서 그냥 다짜고짜 자율주행 차량을 제작하고 싶었습니다. <br/>
 처음에는 한 친구가 우리만의 시스템을 만들고 싶다 하여서 그 친구와 같은 마음으로 프로젝트 시작 기간(3\~6월) 전인 1월에 이야기를 했던 것이 떠오릅니다. <br/>
 그래서 같이 하고 싶은 친구 2명을 모집하여 어떻게 구성할건지, 어떤 알고리즘을 사용해서 주행을 할건지, ADAS로 갈건지 정말 전체적인 시스템을 구현할 건지에 대해서 정해진 이야기는 없고 정말 무책임하게 주제를 선정했었죠.😂 <br/>
 
+### 뻘짓 1단계
 &nbsp;제가 좀 뻘짓을 해놓은게 1~2월 달에 FPGA보드(Zybo Z7-20)를 가지고 있는 친구에게 빌려, 팀원들에게 좀 더 편리함을 제공하고 프로젝트를 진행하기 위한 밑작업을 했었습니다. <br/>
 MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 쉽지 않았습니다. <br/>
 <strong>우선, Xilinx Vivado 및 Vitis가 MacOS에서 Virtualization없이는 설치가 불가피하다는 점.</strong> <br/>
@@ -60,12 +62,26 @@ sudo apt update
 sudo apt install openssh-server net-tools
 ```
 
-해당 작업 후, /etc/ssh/sshd_config 파일을 살짝 수정해 줍니다. <br/>
+해당 작업 후, sudo vi /etc/ssh/sshd_config 를 통해 해당 sshd_config 파일을 살짝 수정해 줍니다. <br/>
 
 ``` bash
-sudo vi /etc/ssh/sshd_config
-(수정부분)
 #Port 2222
 PasswordAuthentication yes
 ```
+
+``` bash
+sudo service ssh --full-restart
+```
+
+이후, ssh service를 부팅 시 자동으로 실행하도록 설정해야 합니다. <br/>
+이는 윈도우 부팅 시 해당 서버로 들어가 sudo service ssh start를 치지 않는 이상 ssh service가 자동으로 시작되지 않기 때문에 진행하는 작업입니다. <br/>
+메모장에 다음과 같이 작성 후, 배치 파일인 sshd.bat으로 파일을 수정합니다. <br/>
+
+``` bash
+@echo off
+"C:\Windows\System32\bash.exe" -c "sudo service ssh start"
+```
+
+그리고 이 sshd.bat파일을 Win + r키를 눌러 실행 창을 띄우고 shell:startup을 입력하여 시작프로그램 폴더안에 넣어 ssh service가 윈도우 부팅 시 자동으로 실행되게 합니다. <br/>
+
 
