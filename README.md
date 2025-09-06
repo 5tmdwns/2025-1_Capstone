@@ -8,7 +8,7 @@
 ## Index ⭐️
 - [1. Prolog](#Prolog) <br/>
   - [1-1. 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)](#뻘짓-첫번째-/(어디서든-접속-가능한-WSL서버-만들기/)) <br/>
-  - [1-2. 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)](#뻘짓-두번째-/(원격으로 FPGA보드에 비트스트림 업로드 하기/)) <br/>
+  - [1-2. 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)](#뻘짓-두번째-/(원격으로-FPGA보드에-비트스트림-업로드-하기/)) <br/>
 - [2. Goal](#Goal) <br/>
 - [3. System Architecture](#System-Architecture) <br/>
 - [4. Process](#Process) <br/>
@@ -184,7 +184,7 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
   <img width="90%" alt="맥북 서버 접속" src="https://github.com/user-attachments/assets/39409e00-deb7-46f6-aa3e-2d04511dda89" />
 </p>
 
-어디서든 접속하게 되었습니다!!! <br/>
+어디서든 접속할 수 있게 되었습니다!!! <br/>
 
 ### 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)
 
