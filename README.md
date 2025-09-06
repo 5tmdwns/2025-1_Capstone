@@ -87,3 +87,21 @@ sudo service ssh --full-restart
 그리고 이 sshd.bat파일을 Win + r키를 눌러 실행 창을 띄우고 shell:startup을 입력하여 시작프로그램 폴더안에 넣어 ssh service가 윈도우 부팅 시 자동으로 실행되게 합니다. <br/>
 
 
+
+
+## Goal
+
+
+
+## System Architecture
+
+
+## Process
+
+## Conclusion
+
+## Difficulites and Feelings
+
+## Reference
+- [리눅스 실습 서버 만들기](https://seonybob3210.tistory.com/35) <br/>
+- [WSL2 외부 접속 설정](https://velog.io/@momentum96/WSL2-%EC%99%B8%EB%B6%80-%EC%A0%91%EC%86%8D-%EC%84%A4%EC%A0%95#2-wsl2-ssh-%EC%84%A4%EC%A0%95) <br/>
