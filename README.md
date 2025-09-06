@@ -60,4 +60,12 @@ sudo apt update
 sudo apt install openssh-server net-tools
 ```
 
+해당 작업 후, /etc/ssh/sshd_config 파일을 살짝 수정해 줍니다. <br/>
+
+``` bash
+sudo vi /etc/ssh/sshd_config
+(수정부분)
+#Port 2222
+PasswordAuthentication yes
+```
 
