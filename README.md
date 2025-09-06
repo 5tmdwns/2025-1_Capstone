@@ -23,25 +23,33 @@ MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 �
 집에 라이젠5 7500F/RTX 4060TI 데스크탑이 있어 윈도우 데스크탑에 WSL2서버를 만들고 그 서버에서 Xilinx Tool을 실행해서 Mac에서 원격으로 접속하면 개발할 수 있지 않을까? 라고 생각하여서 진행했습니다. <br/>
 우선 WSL 서버를 먼저 만들고, 해당 서버에 개발하기 위한 Tool을 설치하였습니다. <br/>
 Xilinx 홈페이지에서 Linux용 .bin파일을 2022.1 버전으로 다운받고 실행시킨 후 install_config.txt의 설정을 다음과 같이 진행하였습니다. <br/>
+
 <p style="margin: 30px 0;">
   <img width="100%" alt="install_config.txt_image" src="https://github.com/user-attachments/assets/df2cce9a-50e0-4505-a52e-32df653e1034" />
 </p>
+
 어차피 저희가 사용할 건 Zynq패밀리의 7000시리즈니까 설치 용량을 위해 나머지는 죄다 0으로 설정하였습니다. (~~Spartan-7은 이후 프로젝트 때문에 추가로 설치 😭~~) <br/>
+
 <p style="margin: 30px 0;">
   <img width="100%" alt=".bashrc_image" src="https://github.com/user-attachments/assets/b2a49a9e-3ff6-43a6-b495-ad90ad2cdaff" />
 </p>
+
 그리고 Vivado와 Vitis의 설치된 경로 안에 있는 settings64.sh를 .bashrc에 넣어 .bashrc를 소싱해주고 Vivado와 Vitis를 실행해 보면? <br/>
+
 <p style="margin: 30px 0;">
   <img width="49%" alt="vivado_start_image" src="https://github.com/user-attachments/assets/48bc15af-af97-471e-9273-58f35d39416d" />
   <img width="49%" alt="vitis_start_image" src="https://github.com/user-attachments/assets/4948ff72-b02b-4406-bae8-1dc29578060d" />
 </p>
+
 Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 
-이제 WSL 서버에 Vivado와 Vitis를 설치했으니, 해당 WSL2 서버를 Port Forwarding을 통해서 접속할 수 있도록 해야 합니다. <br/>
+&nbsp;이제 WSL 서버에 Vivado와 Vitis를 설치했으니, 해당 WSL2 서버를 Port Forwarding을 통해서 접속할 수 있도록 해야 합니다. <br/>
 Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router 이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
+
 <p style="margin: 30px 0;">
   <img width="100%" alt="TP-Link_imgae" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
 </p>
+
 Clint에서 해당 아이피의 포트 2222번으로 접속하면 데스크탑 2222번 포트로 연결 되는데 이는 WSL Server를 가르킵니다. (~~WSL2TORPI5는 추후에 WSL Server에서 RPI5로 더블 포트 포워딩을 위한 작업, Desktop은 MacOS에서 해당 데스크탑으로 원격을 위한 포트입니다.~~)<br/>
 이후, WSL서버에 OpenSSH Server를 설치 합니다. 
 <strong>(WSL 설치 시 기본으로 제공되는 openssh-server에는 문제 발생 요지가 있다고 해서 안전하게 삭제하고 재설치하는 걸 권장!)</strong> <br/>
