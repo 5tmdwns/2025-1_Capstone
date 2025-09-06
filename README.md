@@ -35,7 +35,8 @@ Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router 이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
 <img width="100%" alt="TP-Link_imgae" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" /> <br/>
 Clint에서 해당 아이피의 포트 2222번으로 접속하면 데스크탑 2222번 포트로 연결 되는데 이는 WSL Server를 가르킵니다. (~~WSL2TORPI5는 추후에 WSL Server에서 RPI5로 더블 포트 포워딩을 위한 작업, Desktop은 MacOS에서 해당 데스크탑으로 원격을 위한 포트입니다.~~)<br/>
-이후, WSL서버에 OpenSSH Server를 설치 합니다. <strong>(WSL 설치 시 기본으로 제공되는 openssh-server에는 문제 발생 요지가 있다고 해서 안전하게 삭제하고 재설치하는 걸 권장!)</strong> <br/>
+이후, WSL서버에 OpenSSH Server를 설치 합니다. 
+<strong>(WSL 설치 시 기본으로 제공되는 openssh-server에는 문제 발생 요지가 있다고 해서 안전하게 삭제하고 재설치하는 걸 권장!)</strong> <br/>
 ``` bash
 sudo apt remove openssh-server
 sudo apt update
