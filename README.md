@@ -58,7 +58,7 @@
       <img width="90%" alt="TP-Link 사이트 사진" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
     </p>
     
-    Clint에서 해당 아이피의 포트 2222번으로 접속하면 데스크탑 2222번 포트로 연결 되는데 이는 WSL Server를 가르킵니다. (~~WSL2TORPI5는 추후에 WSL Server에서 RPI5로 더블 포트 포워딩을 위한 작업, Desktop은 MacOS에서 해당    데스크탑으로 원격을 위한 포트입니다.~~)<br/>
+    Clint에서 해당 아이피의 포트 2222번으로 접속하면 데스크탑 2222번 포트로 연결 되는데 이는 WSL Server를 가르킵니다. (~~WSL2TORPI5는 추후에 WSL Server에서 RPI5로 더블 포트 포워딩을 위한 작업, Desktop은 MacOS에서 해당 데스크탑으로 원격을 위한 포트입니다.~~)<br/>
     이후, WSL서버에 OpenSSH Server를 설치 합니다. 
     <strong>(WSL 설치 시 기본으로 제공되는 openssh-server에는 문제 발생 요지가 있다고 해서 안전하게 삭제하고 재설치하는 걸 권장!)</strong> <br/>
     
@@ -187,8 +187,8 @@
     </p>
     
     어디서든 접속할 수 있게 되었습니다!!! <br/>
-    </div>
-  </details>
+  </div>
+</details>
 
 ### 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)
 &nbsp;이제 원격으로 해당 WSL서버에 접속할 수 있으니, WSL에 설치되어 있는 Vivado, Vitis를 실행하여 해당 접속 Client에서 보드에 직접적으로 개발한 코드를 올려보도록 환경을 구축해야 합니다. <br/>
