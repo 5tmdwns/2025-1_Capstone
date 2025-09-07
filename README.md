@@ -194,12 +194,17 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
 - MacOS에서 Windows App으로 데스크탑 접속하기 <br/>
 
 따라서, 진행했던 뻘짓 두번째는 팀원들의 아이디를 만들고, 해당 아이디로 들어가서 Vivado를 통해 WSL서버에 연결되어 있는 FPGA보드의 USB인식이 잘 되는지 확인하는 하는 것이었습니다. <br/>
-우선 작업 Flow는 다음과 같습니다. <br/>
+우선 Window 데스크탑으로 USB 인식 작업 Flow는 다음과 같습니다. <br/>
 
+1. MacOS에는 VirtualHere USB Server 데스크탑에 VirtualHere USB client 설치, 양쪽에 Tailscale 설치. [(VitrualHere 다운로드](https://www.virtualhere.com/osx_server_software),[Tailscale 다운로드)](https://tailscale.com/download) <br/>
+2. Tailscale 회원가입 후 MacOS, 데스크탑 양쪽에서 VirtualHere, Tailscale 실행. <br/>
+3. 그 후 Mac에 USB를 연결 후, MacOS에서 USB Server is running이 뜬 상태면, 데스크탑의 Virtual USB client에 Target Device가 잡힘. (**양쪽 둘다 Tailscale이 켜진 상태여야 함! 이는 같은 네트워크에 있도록 해주는 소프트웨어**) <br/>
+4. 이 후, 데스크탑의 Virtual USB client에서 해당 Target Device를 우클릭 후, Use this device를 선택하면 Window에 해당 디바이스가 물리적으로 연결됨. <br/>
 
+위 과정을 통해, 다음과 같이 연결된 것을 확인할 수 있었습니다. <br/>
+window powershell 연결된 사진 추가! <br/>
 
-
-
+사실 위 사진은 Window 내부 WSL에 연결된 것이 아니라, Window에 연결된 디바이스 여서 따로 WSL에 연결시켜야 합니다. <br/>
 
 ## Goal
 
