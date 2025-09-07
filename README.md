@@ -203,7 +203,6 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
 
 위 과정을 통해, 다음과 같이 연결된 것을 확인할 수 있었습니다. <br/>
 window powershell 연결된 사진 추가! <br/>
-
 사실 위 사진은 Window 내부 WSL에 연결된 것이 아니라, Window에 연결된 디바이스 여서 따로 WSL에 연결시켜야 합니다. <br/>
 
 ## Goal
