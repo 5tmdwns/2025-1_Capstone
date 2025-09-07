@@ -21,9 +21,8 @@
 처음에는 한 친구가 우리만의 시스템을 만들고 싶다 하여서 그 친구와 같은 마음으로 프로젝트 시작 기간(3\~6월) 전인 1월에 이야기를 했던 것이 떠오릅니다. <br/>
 그래서 같이 하고 싶은 친구 2명을 모집하여 어떻게 구성할건지, 어떤 알고리즘을 사용해서 주행을 할건지, ADAS로 갈건지 정말 전체적인 시스템을 구현할 건지에 대해서 정해진 이야기도 없고 주제도 선정하지 않았었죠.😂 <br/>
 
-<details markdown="1">
+<details>
   <summary><h3>뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)</h3></summary>
-  
   &nbsp;제가 좀 뻘짓을 해놓은게 1~2월 달에 FPGA보드(Zybo Z7-20)를 가지고 있는 친구에게 빌려, 팀원들에게 좀 더 편리함을 제공하고 프로젝트를 진행하기 위한 밑작업을 했었습니다. <br/>
   MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 쉽지 않았습니다. <br/>
   <strong>우선, Xilinx Vivado 및 Vitis가 MacOS에서 Virtualization없이는 설치가 불가피하다는 점.</strong> <br/>
@@ -101,7 +100,7 @@
     <img width="90%" alt="visudo 사진" src="https://github.com/user-attachments/assets/59de28bb-c441-43a6-9135-8eb86f7b3caa" /> 
   </p>
   
-  Client에서 PC의 공인IP와 포트를 통해서 PC 내부의 WSL에 접속하기 위해 TP-Link 사이트에서 아이피 고정하고 위 과정을 하면 접속이 될 줄 알았더만, <strong>WSL 이자식이 부팅시마다 가상 IP주소가 재부팅시마다 변합니다.</strong> 😡 <br/>
+  Client에서 PC의 공인IP와 포트를 통해서 PC 내부의 WSL에 접속하기 위해 TP-Link 사이트에서 아이피 고정하고 위 과정을 하면 접속이 될 줄 알았더만, <strong>WSL 이자식이 부팅시마다 가상 IP주소가 재부팅시마다 변합니다.</strong>    😡 <br/>
   그래서 이놈의 바뀌는 IP를 PowerShell Script를 통해 공유기에서 할당된 PC의 IP Port를 WSL의 가상 IP Port로 포워딩 시켜줍니다. <br/>
   작성했던 해당 스크립트는 다음과 같습니다. <br/>
   
@@ -187,8 +186,7 @@
   </p>
   
   어디서든 접속할 수 있게 되었습니다!!! <br/>
-  
-</details>
+  </details>
 
 
 
