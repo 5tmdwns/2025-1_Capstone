@@ -23,7 +23,7 @@
 
 <details>
   <summary><h3>뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)</h3></summary>
-  <div markdown="1">
+
     &nbsp;제가 좀 뻘짓을 해놓은게 1~2월 달에 FPGA보드(Zybo Z7-20)를 가지고 있는 친구에게 빌려, 팀원들에게 좀 더 편리함을 제공하고 프로젝트를 진행하기 위한 밑작업을 했었습니다. <br/>
     MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 쉽지 않았습니다. <br/>
     <strong>우선, Xilinx Vivado 및 Vitis가 MacOS에서 Virtualization없이는 설치가 불가피하다는 점.</strong> <br/>
@@ -187,7 +187,7 @@
     </p>
     
     어디서든 접속할 수 있게 되었습니다!!! <br/>
-  </div>
+
 </details>
 
 ### 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)
