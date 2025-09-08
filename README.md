@@ -172,7 +172,7 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
   <img width="90%" alt="windows defender 설정 사진" src="https://github.com/user-attachments/assets/d1ea7932-b15a-43d4-8999-a22fd7e5c3d5" />
 </p>
 
-이로서 설정은 다 되었고, 내 IP 해당 포트가 열려있는지 확인하기 위해서 해당 사이트를 들어가서 확인해봤습니다.[(포트확인 사이트)](https://www.yougetsignal.com/tools/open-ports/) <br/>
+이로서 설정은 다 되었고, 내 IP 해당 포트가 열려있는지 확인하기 위해서 해당 사이트를 들어가서 확인해봤습니다.([포트확인 사이트](https://www.yougetsignal.com/tools/open-ports/)) <br/>
 
 <p align="center" style="margin: 20px 0">
   <img width="90%" alt="you get signal 페이지 사진" src="https://github.com/user-attachments/assets/431d07f0-fe32-4ef8-bce4-05e5da09fdba" />
