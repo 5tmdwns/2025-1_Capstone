@@ -6,15 +6,15 @@
 </p>
 
 ## Index ⭐️
-- [1. Prologue](#Prologue) <br/>
-  - [1-1. 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)](#뻘짓-첫번째-/(어디서든-접속-가능한-WSL서버-만들기/)) <br/>
-  - [1-2. 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)](#뻘짓-두번째-/(원격으로-FPGA보드에-비트스트림-업로드-하기/)) <br/>
-- [2. Goal](#Goal) <br/>
-- [3. System Architecture](#System-Architecture) <br/>
-- [4. Process](#Process) <br/>
-- [5. Conclusion](#Conclusion) <br/>
-- [6. Difficulites and Feelings](#Difficulties-and-Feelings) <br/>
-- [7. Reference](#Reference) <br/>
+- [1. Prologue](#Prologue)
+  - [1-1. 뻘짓 첫번째 (어디서든 접속 가능한 WSL서버 만들기)](#뻘짓-첫번째-/(어디서든-접속-가능한-WSL서버-만들기/))
+  - [1-2. 뻘짓 두번째 (원격으로 FPGA보드에 비트스트림 업로드 하기)](#뻘짓-두번째-/(원격으로-FPGA보드에-비트스트림-업로드-하기/))
+- [2. Goal](#Goal)
+- [3. System Architecture](#System-Architecture)
+- [4. Process](#Process)
+- [5. Conclusion](#Conclusion)
+- [6. Difficulites and Feelings](#Difficulties-and-Feelings)
+- [7. Reference](#Reference)
 
 ## Prologue
 &nbsp;졸업작품을 위해서 그냥 다짜고짜 자율주행 차량을 제작하고 싶었습니다. <br/>
@@ -146,21 +146,21 @@ Invoke-Expression "netsh interface portproxy show v4tov4";
 Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러를 열어줍니다. <br/>
 그리고 작업 만들기를 클릭 한 후, 다음과 같이 설정합니다. <br/>
 
-- **일반 설정 탭** <br/>
-- 이름 : WSL network Forwarding <br/>
-- 보안옵션 : 사용자가 로그온할 때만 실행, 가장 높은 수준의 권한으로 실행 체크 <br/>
-- **트리거 탭** <br/>
+- **일반 설정 탭**
+- 이름 : WSL network Forwarding
+- 보안옵션 : 사용자가 로그온할 때만 실행, 가장 높은 수준의 권한으로 실행 체크
+- **트리거 탭**
 새로만들기 후, <br/>
-- 작업 시작 : 로그온할 때 <br/>
-- **동작 탭** <br/>
+- 작업 시작 : 로그온할 때
+- **동작 탭**
 새로만들기 후, <br/>
-- 동작 : 프로그램 시작 <br/>
-- 프로그램/스크립트 : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe <br/>
-- 인수 추가(옵션) : -ExecutionPolicy Bypass -File .\ports_wsl.ps1 <br/>
-- 시작 위치(옵션) : C:\PowerShellScript <br/>
-- **조건 탭** <br/>
+- 동작 : 프로그램 시작
+- 프로그램/스크립트 : `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
+- 인수 추가(옵션) : `-ExecutionPolicy Bypass -File .\ports_wsl.ps1`
+- 시작 위치(옵션) : `C:\PowerShellScript`
+- **조건 탭**
 컴퓨터의 AC 전원이 켜져 있는 경우에만 작업 시작 체크 해제 <br/>
-- **설정 탭** <br/>
+- **설정 탭**
 다음 시간 이상 작업이 실행되면 중지 체크 해제 <br/>
 
 위처럼 설정하면 부팅 시 자동으로 해당 ports_wsl.ps1이 실행됩니다. <br/>
@@ -190,16 +190,16 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
 &nbsp;이제 원격으로 해당 WSL서버에 접속할 수 있으니, WSL에 설치되어 있는 Vivado, Vitis를 실행하여 해당 접속 Client에서 보드에 직접적으로 개발한 코드를 올려보도록 환경을 구축해야 합니다. <br/>
 우선, 데스크탑을 MacOS로 어디서든 원격으로 접속할 수 있게 다음과 같은 환경을 미리 구축해 놨었습니다. <br/>
 
-- WOL로 데스크탑 전원 키기 <br/>
-- MacOS에서 Windows App으로 데스크탑 접속하기 <br/>
+- WOL로 데스크탑 전원 키기
+- MacOS에서 Windows App으로 데스크탑 접속하기
 
 따라서, 진행했던 뻘짓 두번째는 팀원들의 아이디를 만들고, 해당 아이디로 들어가서 Vivado를 통해 WSL서버에 연결되어 있는 FPGA보드의 USB인식이 잘 되는지 확인하는 하는 것이었습니다. <br/>
 우선 Window 데스크탑으로 USB 인식 작업 Flow는 다음과 같습니다. <br/>
 
-1. MacOS에는 VirtualHere USB Server 데스크탑에 VirtualHere USB client 설치, 양쪽에 Tailscale 설치. ([VitrualHere 다운로드](https://www.virtualhere.com/osx_server_software), [Tailscale 다운로드](https://tailscale.com/download)) <br/>
-2. Tailscale 회원가입 후 MacOS, 데스크탑 양쪽에서 VirtualHere, Tailscale 실행. <br/>
-3. 그 후 Mac에 USB를 연결 후, MacOS에서 USB Server is running이 뜬 상태면, 데스크탑의 Virtual USB client에 Target Device가 잡힘. (**양쪽 둘다 Tailscale이 켜진 상태여야 함! 이는 같은 네트워크에 있도록 해주는 소프트웨어**) <br/>
-4. 이 후, 데스크탑의 Virtual USB client에서 해당 Target Device를 우클릭 후, Use this device를 선택하면 Window에 해당 디바이스가 물리적으로 연결됨. <br/>
+1. MacOS에는 VirtualHere USB Server 데스크탑에 VirtualHere USB client 설치, 양쪽에 Tailscale 설치. ([VitrualHere 다운로드](https://www.virtualhere.com/osx_server_software), [Tailscale 다운로드](https://tailscale.com/download))
+2. Tailscale 회원가입 후 MacOS, 데스크탑 양쪽에서 VirtualHere, Tailscale 실행.
+3. 그 후 Mac에 USB를 연결 후, MacOS에서 USB Server is running이 뜬 상태면, 데스크탑의 Virtual USB client에 Target Device가 잡힘. (**양쪽 둘다 Tailscale이 켜진 상태여야 함! 이는 같은 네트워크에 있도록 해주는 소프트웨어**)
+4. 이 후, 데스크탑의 Virtual USB client에서 해당 Target Device를 우클릭 후, Use this device를 선택하면 Window에 해당 디바이스가 물리적으로 연결됨.
 
 위 과정을 통해, 다음과 같이 연결된 것을 확인할 수 있었습니다. <br/>
 window powershell 연결된 사진 추가! <br/>
