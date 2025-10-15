@@ -50,7 +50,7 @@ Xilinx 홈페이지에서 Linux용 .bin파일을 2022.1 버전으로 다운받�
 Vivado와 Vitis가 잘 설치된 것을 확인 할 수 있었습니다. <br/>
 
 &nbsp;이제 WSL 서버에 Vivado와 Vitis를 설치했으니, 해당 WSL2 서버를 Port Forwarding을 통해서 접속할 수 있도록 해야 합니다. <br/>
-Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router 이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
+Host가 사용하는 공유기는 AX1500 Gigabit Wi-Fi 6 Router이므로, TP-Link 사이트로 들어가서 Port Forwarding을 지원하는 지 확인해봅니다. <br/>
 
 <p align="center" style="margin: 20px 0;">
   <img width="90%" alt="TP-Link 사이트 사진" src="https://github.com/user-attachments/assets/96b44895-d230-4eef-a4be-ed1fc3e5f877" />
@@ -66,7 +66,7 @@ sudo apt update
 sudo apt install openssh-server net-tools
 ```
 
-해당 작업 후, sudo vi /etc/ssh/sshd_config 를 통해 해당 sshd_config 파일을 살짝 수정해 줍니다. <br/>
+해당 작업 후, sudo vi /etc/ssh/sshd_config 를 통해 해당 `sshd_config` 파일을 살짝 수정해 줍니다. <br/>
 
 ``` bash
 #Port 2222
@@ -79,15 +79,15 @@ sudo service ssh --full-restart
 
 이후, ssh service를 부팅 시 자동으로 실행하도록 설정해야 합니다. <br/>
 이는 윈도우 부팅 시 해당 서버로 들어가 sudo service ssh start를 치지 않는 이상 ssh service가 자동으로 시작되지 않기 때문에 진행하는 작업입니다. <br/>
-메모장에 다음과 같이 작성 후, 배치 파일인 sshd.bat으로 파일을 수정합니다. <br/>
+메모장에 다음과 같이 작성 후, 배치 파일인 `sshd.bat`으로 파일을 수정합니다. <br/>
 
 ``` bash
 @echo off
 "C:\Windows\System32\bash.exe" -c "sudo service ssh start"
 ```
 
-그리고 이 sshd.bat파일을 Win + r키를 눌러 실행 창을 띄우고 shell:startup을 입력하여 시작프로그램 폴더안에 넣어 ssh service가 윈도우 부팅 시 자동으로 실행되게 합니다. <br/>
-하지만 sudo시 비밀번호를 입력하라는 창을 볼텐데, 비밀번호 없이 시작하기 위해 설정할려면 WSL서버에서 visudo를 설정합니다. <br/>
+그리고 이 `sshd.bat`파일을 Win + r키를 눌러 실행 창을 띄우고 `shell:startup`을 입력하여 시작프로그램 폴더안에 넣어 ssh service가 윈도우 부팅 시 자동으로 실행되게 합니다. <br/>
+하지만 sudo시 비밀번호를 입력하라는 창을 볼텐데, 비밀번호 없이 시작하기 위해 설정할려면 WSL서버에서 `visudo`를 설정합니다. <br/>
 
 ``` bash
 sudo visudo
@@ -133,9 +133,9 @@ Invoke-Expression "netsh interface portproxy add v4tov4 listenport=$port connect
 Invoke-Expression "netsh interface portproxy show v4tov4";
 ```
 
-여기서 $port = @(2222, 2223); 부분에 포워딩하고 싶은 포트를 입력했습니다. <br/>
+여기서 `$port = @(2222, 2223);` 부분에 포워딩하고 싶은 포트를 입력했습니다. <br/>
 그럼 공유기에서 할당된 PC의 IP Port가 WSL2의 가상 IP Port로 연결됩니다. <br/>
-그리고 해당 스크립트를 메모장에서 만든 뒤 ports_wsl.ps1 으로 저장하고 C 드라이브에 PowerShellScript 폴더를 만들어 저장했습니다. <br/>
+그리고 해당 스크립트를 메모장에서 만든 뒤 `ports_wsl.ps1`으로 저장하고 C 드라이브에 PowerShellScript 폴더를 만들어 저장했습니다. <br/>
 그리고 해당 스크립트를 PowerShell에서 실행시켜 본다면? <br/>
 
 <p align="center" style="margin: 20px 0">
@@ -143,7 +143,7 @@ Invoke-Expression "netsh interface portproxy show v4tov4";
 </p>
 
 자, 그럼 이제 또 위 스크립트를 귀찮게 부팅 시마다 실행시킬 수 없으니 작업 스케줄러를 작성하고 ExecutionPolicy를 지정했습니다. <br/>
-Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러를 열어줍니다. <br/>
+Win + r을 눌러 실행 창에 `taskschd.msc`를 실행하여 작업 스케줄러를 열어줍니다. <br/>
 그리고 작업 만들기를 클릭 한 후, 다음과 같이 설정합니다. <br/>
 
 - **일반 설정 탭**
@@ -163,7 +163,7 @@ Win + r을 눌러 실행 창에 taskschd.msc를 실행하여 작업 스케줄러
 - **설정 탭**
 다음 시간 이상 작업이 실행되면 중지 체크 해제 <br/>
 
-위처럼 설정하면 부팅 시 자동으로 해당 ports_wsl.ps1이 실행됩니다. <br/>
+위처럼 설정하면 부팅 시 자동으로 해당 `ports_wsl.ps1`이 실행됩니다. <br/>
 이후, 포트 개방을 하기 위해선 방화벽을 해제해야 했습니다. <br/>
 Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/>
 해당 규칙은 TCP에 적용시키고, 특정 포트 2222에 적용시킵니다. <br/>
