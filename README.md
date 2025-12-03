@@ -29,7 +29,7 @@ MacOS를 사용하는 유저로서, 이동하면서 ARM을 개발하기에는 �
 어떻게 하면 돌아다니면서 개발을 할 수 있을까? 생각하다가 문득 떠오른 방법이 USB Porting을 통한 개발법이었습니다. <br/>
 집에 라이젠5 7500F/RTX 4060TI 데스크탑이 있어 윈도우 데스크탑에 WSL2서버를 만들고 그 서버에서 Xilinx Tool을 실행해서 Mac에서 원격으로 접속하면 개발할 수 있지 않을까? 라고 생각하여서 진행했습니다. <br/>
 우선 WSL 서버를 먼저 만들고, 해당 서버에 개발하기 위한 Tool을 설치하였습니다. <br/>
-Xilinx 홈페이지에서 Linux용 .bin파일을 2022.1 버전으로 다운받고 실행시킨 후 install_config.txt의 설정을 다음과 같이 진행하였습니다. <br/>
+Xilinx 홈페이지에서 Linux용 `.bin`파일을 2022.1 버전으로 다운받고 실행시킨 후 `install_config.txt`의 설정을 다음과 같이 진행하였습니다. <br/>
 
 <p align="center" style="margin: 20px 0;">
   <img width="90%" alt="install_config.txt 사진" src="https://github.com/user-attachments/assets/df2cce9a-50e0-4505-a52e-32df653e1034" />
@@ -67,7 +67,7 @@ sudo apt update
 sudo apt install openssh-server net-tools
 ```
 
-해당 작업 후, sudo vi /etc/ssh/sshd_config 를 통해 해당 `sshd_config` 파일을 살짝 수정해 줍니다. <br/>
+해당 작업 후, `sudo vi /etc/ssh/sshd_config` 를 통해 해당 `sshd_config` 파일을 살짝 수정해 줍니다. <br/>
 
 ``` bash
 #Port 2222
