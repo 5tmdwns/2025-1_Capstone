@@ -229,7 +229,7 @@ usbipd attach --wsl --busid <연결 디바이스 BUS ID>
 </p>
 
 &nbsp;이후, WSL에서 Vivado로 비트스트림 업로드하기위한 Open Hardware Manager로 들어가보면 Target Hardware Device가 잡히는 것을 볼 수 있습니다. <br/>
-WSL에서 Vivado를 Sudo 권한이 아닌 일반 User로 실행한다면, Device는 나오지만 아래의 Programme Hardware Device가 빈칸으로 나오지 않는 경우가 있습니다. <br/>
+WSL에서 Vivado를 Sudo 권한이 아닌 일반 User로 실행한다면, Device는 나오지만 아래의 Programme Target이 빈칸으로 나오지 않는 경우가 있습니다. <br/>
 이는 Udev룰이 없는 WSL USB Port 권한 문제이므로 Cable Driver를 설치해야 합니다. 다음 링크를 참조하세요. ([Install Cable Driver](https://digilent.com/reference/programmable-logic/guides/install-cable-drivers)) <br/>
 
 ## Goal
