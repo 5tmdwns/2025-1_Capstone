@@ -194,7 +194,7 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
 - WOL로 데스크탑 전원 키기
 - MacOS에서 Windows App으로 데스크탑 접속하기
 
-따라서, 진행했던 뻘짓 두번째는 팀원들의 아이디를 만들고, 해당 아이디로 들어가서 Vivado를 통해 WSL서버에 연결되어 있는 FPGA보드의 USB인식이 잘 되는지 확인하는 하는 것이었습니다. <br/>
+&nbsp;따라서, 진행했던 뻘짓 두번째는 팀원들의 아이디를 만들고, 해당 아이디로 들어가서 Vivado를 통해 WSL서버에 연결되어 있는 FPGA보드의 USB인식이 잘 되는지 확인하는 하는 것이었습니다. <br/>
 우선 Window 데스크탑으로 USB 인식 작업 Flow는 다음과 같습니다. <br/>
 
 1. MacOS에는 VirtualHere USB Server 데스크탑에 VirtualHere USB client 설치, 양쪽에 Tailscale 설치. ([VitrualHere 다운로드](https://www.virtualhere.com/osx_server_software), [Tailscale 다운로드](https://tailscale.com/download))
@@ -202,8 +202,35 @@ Windows Defender 방화벽에서 인바운드 규칙을 추가했습니다. <br/
 3. 그 후 Mac에 USB를 연결 후, MacOS에서 USB Server is running이 뜬 상태면, 데스크탑의 Virtual USB client에 Target Device가 잡힘. (**양쪽 둘다 Tailscale이 켜진 상태여야 함! 이는 같은 네트워크에 있도록 해주는 소프트웨어**)
 4. 이 후, 데스크탑의 Virtual USB client에서 해당 Target Device를 우클릭 후, Use this device를 선택하면 Window에 해당 디바이스가 물리적으로 연결됨.
 
-위 과정을 통해, 다음과 같이 연결된 것을 확인할 수 있었습니다. <br/>
-사실 위 사진은 Window 내부 WSL에 연결된 것이 아니라, Window에 연결된 디바이스여서 따로 WSL에 연결시켜야 합니다. <br/>
+위 과정을 통해, 다음과 같이 원격 Window 데스크탑에 MacOS에 연결된 장치를 인식할 수 있었습니다. <br/>
+
+<p align="center" style="margin: 20px 0">
+  <img width="90%" height="Window PowerShell 사진" alt="KakaoTalk_20251204_184055840_02" src="https://github.com/user-attachments/assets/45e5a0c9-ca7b-4506-ac13-3cac332a2e27" />
+</p>
+
+&nbsp;사실 위 사진은 Window 내부 WSL에 연결된 것이 아니라, Window에 연결된 디바이스여서 따로 WSL에 연결시켜야 합니다. <br/>
+현재 Shared 상태여서 바로 Attach를 하면 되지만, 처음 연결한다면 Shared 상태가 아닐 수도 있습니다. <br/>
+그럴땐, `usbipd bind` 명령어를 통해 Shared 상태로 만들어 주어야 합니다. 명령어는 다음 링크 참조 ([USB 디바이스 연결](https://learn.microsoft.com/ko-kr/windows/wsl/connect-usb)) <br/>
+해당 디바이스 버스가 Shared 상태가 되면, 다음 명령어로 WSL에 Attach 시켜줍니다. <br/>
+
+``` Shell
+usbipd attach --wsl --busid <연결 디바이스 BUS ID>
+```
+<p align="center" style="margin: 20px 0">
+  <img width="90%" alt="Attach" src="https://github.com/user-attachments/assets/d7b3b647-928a-49a9-9d91-8cea15124eb0" />
+</p>
+
+&nbsp;위 사진에서 저는 Bus ID가 1-1이여서 해당 Bus ID를 WSL에 Attach 시켜줬습니다. <br/>
+
+&nbsp;WSL에 들어가서 `lsusb` 명령어로 확인해보면 사진과 같이 해당 디바이스가 인식되는 것을 확인할 수 있습니다. <br/>
+
+<p align="center" style="margin: 20px 0">
+  <img width="90%" alt="lsusb" src="https://github.com/user-attachments/assets/6c39d34d-daf5-4769-a3b6-569a494aa8a2" />
+</p>
+
+&nbsp;이후, WSL에서 Vivado로 비트스트림 업로드하기위한 Open Hardware Manager로 들어가보면 Target Hardware Device가 잡히는 것을 볼 수 있습니다. <br/>
+WSL에서 Vivado를 Sudo 권한이 아닌 일반 User로 실행한다면, Device는 나오지만 아래의 Programme Hardware Device가 빈칸으로 나오지 않는 경우가 있습니다. <br/>
+이는 Udev룰이 없는 WSL USB Port 권한 문제이므로 Cable Driver를 설치해야 합니다. 다음 링크를 참조하세요. ([Install Cable Driver](https://digilent.com/reference/programmable-logic/guides/install-cable-drivers)) <br/>
 
 ## Goal
 
